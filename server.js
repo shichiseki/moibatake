@@ -6,7 +6,7 @@ app.use('/css', express.static(__dirname + '/dist/css/'));
 app.use('/js', express.static(__dirname + '/dist/js/'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/dist/index.html'))
 
-app.listen(5000, () => console.log('Example app listening on port 3000!'))
+app.listen(5000, () => console.log('Example app listening on port 5000!'))
 app.get('/api/hello', (req, res) => {
     res.send('hello i am express')
 })
