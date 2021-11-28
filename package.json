@@ -1,20 +1,21 @@
 {
-  "name": "vue-express-sample",
+  "name": "moibatake",
   "version": "0.1.0",
   "private": true,
   "engines": {
     "node": "16.x"
   },
   "scripts": {
-
-    "serve": "vue-cli-service serve --host localhost", 
+    "serve": "vue-cli-service serve --host localhost",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.24.0",
+    "cool-ascii-faces": "^1.3.4",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
+    "mysql2": "^2.3.3",
     "vue": "^3.0.0",
     "vue-axios": "^3.4.0"
   },
