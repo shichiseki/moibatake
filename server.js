@@ -48,15 +48,12 @@ const createNewMysqlConnection = async () => {
 // })
 
 express()
-  .use(express.static(path.join(__dirname, 'public')))
   .use(express.json())
   .use(express.urlencoded({extended: true}))
   .use('/img', express.static(__dirname + '/dist/img/'))
   .use('/css', express.static(__dirname + '/dist/css/'))
   .use('/js', express.static(__dirname + '/dist/js/'))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  // .get('/', (req, res) => res.render('pages/index'))
+
   .get('/api/hello', (req, res) => {
       res.send('hello i am express')
     })
