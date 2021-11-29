@@ -73,7 +73,8 @@ express()
     res.send(rows)
     await pool.end()
   })
-
+  
+  // 変更よてい
   .post('/add',  async (req, res, next) =>{
       try {
           console.log(req.body)
