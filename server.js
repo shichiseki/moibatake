@@ -2,36 +2,42 @@ const express = require('express')
 const path = require('path')
 const cool = require('cool-ascii-faces')
 const mysql = require('mysql2')
-const bluebird = require('bluebird')
+// const bluebird = require('bluebird')
 const PORT = process.env.PORT || 3000
 
+const MysqlSetting = {
+  host: process.env.DB_HOST,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+}
 require('dotenv').config()
 
-let mysqlConnection = null;
-const getMysqlConnection = async () => {
-  // Check to see if connection exists and is not in the "closing" state
-  if (!mysqlConnection || mysqlConnection?.connection?._closing) {
-    mysqlConnection = await createNewMysqlConnection();
-  }
-  return mysqlConnection;
-}
+// let mysqlConnection = null;
+// const getMysqlConnection = async () => {
+//   // Check to see if connection exists and is not in the "closing" state
+//   if (!mysqlConnection || mysqlConnection?.connection?._closing) {
+//     mysqlConnection = await createNewMysqlConnection();
+//   }
+//   return mysqlConnection;
+// }
 
-const createNewMysqlConnection = async () => {
-  const connection = await mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    Promise: bluebird,
-  })
+// const createNewMysqlConnection = async () => {
+//   const connection = await mysql.createPool({
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USERNAME,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_NAME,
+//     Promise: bluebird,
+//   })
 
-  // You can do something here to handle the connection
-  // being closed when it occurs.
-//   connection.connection.stream.on('close', () => {
-//     console.log("MySQL connection closed");
-//   });
-  return connection;
-}
+//   // You can do something here to handle the connection
+//   // being closed when it occurs.
+// //   connection.connection.stream.on('close', () => {
+// //     console.log("MySQL connection closed");
+// //   });
+//   return connection;
+// }
 
 // const con = mysql.createConnection({
 //   host: process.env.DB_HOST,
@@ -57,23 +63,15 @@ express()
   .get('/api/hello', (req, res) => {
       res.send('hello i am express')
     })
-//   .get('/', (req, res) => {
-//     con.query(
-//       'SELECT * FROM battle_record',
-//       (error, results) => {
-//         console.log(results)
-//         res.render('pages/index')
-//       }
-//     )
-//   })
+
   .get('/', (req, res) => res.sendFile(__dirname + '/dist/index.html'))
   .get('/cool', (req, res) => res.send(cool()))
   .get('/show', async (req, res) => {
-    const con = await getMysqlConnection()
-    con.query('SELECT * from battle_record', (err, results) => {
-      res.send(results)
-      console.log(results)
-    })
+    const pool = await mysql.createPool(MysqlSetting)
+    const promisePool = pool.promise()
+    const [rows, fields] = await promisePool.query('SELECT * from battle_record')
+    res.send(rows)
+    await pool.end()
   })
 
   .post('/add',  async (req, res, next) =>{
