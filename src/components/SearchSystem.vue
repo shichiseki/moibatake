@@ -69,11 +69,11 @@ export default {
           field: 'rule_partipants',
         },
         {
-          label: 'TeamAのスコア',
+          label: '自軍のスコア',
           field: 'team_a_score',
         },
         {
-          label: 'TeamBのスコア',
+          label: '敵軍のスコア',
           field: 'team_b_score',
         },
         {
