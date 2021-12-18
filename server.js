@@ -10,6 +10,7 @@ const MysqlSetting = {
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  dateStrings: 'date' 
 }
 
 const pool = mysql.createPool(MysqlSetting)
@@ -32,6 +33,7 @@ express()
   .get('/cool', (req, res) => res.send(cool()))
   .get('/show', wrap(async (req, res) => {
     const [rows, fields] = await promisePool.query('SELECT * from battle_record')
+    console.log(rows)
     res.send(rows)
   }))
   

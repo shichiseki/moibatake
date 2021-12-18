@@ -12,5 +12,5 @@ module.exports = {
             poll: true
           }
     
-}
+},
 }

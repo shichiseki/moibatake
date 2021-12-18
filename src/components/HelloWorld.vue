@@ -19,13 +19,13 @@ export default {
   props: {
     msg: String
   },
-  methods: {
-  greeting: function(){
-    this.axios.get('/api/hello')
-    .then((res) => alert(res.data))
-    .catch((e) => alert(e))
-  }
-},
+//   methods: {
+//   greeting: function(){
+//     this.axios.get('/api/hello')
+//     .then((res) => alert(res.data))
+//     .catch((e) => alert(e))
+//   }
+// },
 }
 </script>
 
