@@ -48,7 +48,7 @@ export default {
           // dateOutputFormat: 'MMM do yy',
         },
         {
-          label: 'matchtype',
+          label: 'マッチの種類',
           field: 'match_type',
           // type: 'percentage',
         },
